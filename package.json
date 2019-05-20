@@ -1,0 +1,23 @@
+{
+  "name": "scrape-cheerio-mongo",
+  "version": "1.0.0",
+  "description": "\"Scrape articles and save them in a DB\"",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "MF",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.0",
+    "express-handlebars": "^3.1.0",
+    "mocha": "^6.1.4",
+    "mongojs": "^2.6.0",
+    "mongoose": "^5.5.9",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.0"
+  }
+}

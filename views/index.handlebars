@@ -1,0 +1,70 @@
+
+            <header class="header-school-page navbar justify-content-center sticky-top">
+                <h1 class="logo-scholar-line">
+                        MONGO SCRAPER
+                </h1>
+            </header>
+            <div class="nav-container">
+                <!-- <nav class="nav nav-school justify-content-center"> -->
+                <ul class="nav justify-content-center">
+                    <li class="link-container nav-item">
+                        <a class="home-link nav-link" href="/">HOME</a>
+                    </li>
+                    <li class="link-container nav-item">
+                        <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
+                    </li>
+                    <li class="link-container nav-item">
+                        <form class="form-inline"> 
+                            <button id="scrape-btn" class="btn btn-dark my-2 my-sm-0" type="submit">SCRAPE ARTICLES</button>
+                        </form>
+                    </li>
+                </ul>
+            
+        </div>
+                <!-- </nav> -->
+           
+
+         <!-- CONTENT -->
+            <div class="container main-container-results">
+                <div class="container search-results">
+                        {{#if articles}} 
+                    <!-- <h3 id="search-results-title">Grade 2</h3> -->
+                        <div class="container card container-results-all">
+                            <div class="row justify-content-between">
+                                {{!-- <h4 class="card-title col-lg-3" id="sr">SCRAPE RESULTS</h4> --}}
+                            </div>
+                            <div class="card-body tableDiv">
+                                <table class="table table-hover" id="tableContainer">
+                                        <thead>
+                                <tr>
+                                    <th class="school-type">THE ECONOMIST INTERNATIONAL</th>
+                                </tr>
+                            </thead> 
+                         
+                                    <tbody id="tbody">
+                                        {{#each articles}}
+                                        <tr>
+                                            <td class="row">
+                                                <h4 class="article-title row col-lg-8">{{this.title}}</h4>
+                                                <p class="description row col-lg-8">{{this.descr}}</p>
+                                                <form class="row">
+                                                   
+                                                        <button class="learn-btn btn btn-sm btn-dark col-lg-3"> <a href="{{this.link}}" target="_blank">KEEP READING</a></button>
+                                                    
+                                                </form>
+                                                    
+                                                    <button class="add-article-btn btn btn-sm btn-dark add-btn col-lg-5 ml-2" data-id="{{this._id}}">SAVE ARTICLE</button>
+                                                
+                                             </td>
+                                        </tr>
+                                        {{/each}}
+                                        </tbody>
+                                        {{else}} 
+                                        <h4>No articles</h4> 
+                                </table>       
+                            </div>
+                        </div>
+                          {{/if}}
+                    </div>
+                </div> 
+              
