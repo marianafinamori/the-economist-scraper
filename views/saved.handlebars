@@ -27,7 +27,6 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Saved articles</h2>
-            <!--saved articles go here-->
             {{#each articles}}
     <div class="card mt-5">
         <div class="card-body bg-success">
@@ -35,9 +34,9 @@
             <p class="card-text article-summary">{{this.descr}}</p>
     
             <br>
-            <a href='{{this.link}}' target="_blank"><button class="btn btn-primary btn-dark mt-4">Continue reading</button></a>
-            <button class="btn btn-primary btn-dark ml-3 mt-4 remove-saved-btn" data-id="{{this._id}}">Remove from saved</button></a>
-            <button class="btn btn-dark ml-3 mt-4 add-notes-btn" data-id="{{this._id}}">Leave a comment</button>
+            <a href='{{this.link}}' target="_blank"><button class="btn btn-primary btn-dark mt-4">KEEP READING</button></a>
+            <button class="btn btn-primary btn-dark ml-3 mt-4 remove-saved-btn" data-id="{{this._id}}">DELETE FROM FAVORITES</button></a>
+            <button class="btn btn-dark ml-3 mt-4 add-notes-btn" data-id="{{this._id}}">COMMENT</button>
         </div>
     </div>
 {{/each}}
@@ -47,10 +46,3 @@
 
 
 
-<!--Confirmation modal that displays when a user is about to remove an article from the saved articles list.-->
-{{> remove-save-article-message}}
-
-<!--Modal for entering article comments/notes-->
-{{> comments-modal}}
-
-{{> delete-comment-confirmation-modal}}
