@@ -195,17 +195,18 @@ function saveStatus(isSaved, req, res) {
       });
   });
 
-  //Route to DELETE a specific ARTICLE
-  app.delete("/articles/:id", function(res, req) {
-    db.Article.deleteOne({ _id: req.params.id }, function(err, data) {
-      if(err) {
-        console.log(err);
-      } else {
-        console.log("delete")
+ 
+ //Route to DELETE an ARTICLE
+app.delete("/articles/:id", function(req, res) {
+  db.Article.deleteOne({ _id: req.params.id }, function(err, data) {
+    if (err) {
+      console.log(err);
+    } else {
         res.json(data);
-      }
-    })
-  })
+     }
+  });
+});
+
 
   //Route to DELETE a NOTE
   app.delete("/notes/:id", function(req, res) {

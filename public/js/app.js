@@ -41,16 +41,17 @@ $(".save-article-btn").on("click", function(event) {
 
   //Remove from scrape results list
   $(".delete-article-btn").on("click", function(event) {
-      var id = $(this).attr("data-id");
-      console.log(id)
-          $.ajax({
-              method: "DELETE",
-              url: "/articles/" + id 
-          })
-          .then(function(data) {
-              location.reload();
-            });  
-  });
+    var id = $(this).data("id");
+        $.ajax("/articles/" + id, {
+            type: "DELETE",
+        }).then(
+            function() {
+            console.log("deleted article", id);
+            location.reload();
+            }
+        );
+   
+});
 
   //Click event to open the article notes/comments modal.
   $(".add-note-btn").on("click", function(event) {
