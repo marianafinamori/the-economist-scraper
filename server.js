@@ -61,7 +61,7 @@ app.get("/", function(req, res) {
       console.log(err);
     } else {
       // res.send("Hello world")
-      console.log(articles);
+      // console.log(articles);
       res.render("index", { articles: articles})
     }
   })
@@ -108,8 +108,6 @@ app.get("/scrape", function(req, res) {
 })
 
 
-
-
 // Route for getting ALL ARTICLES from the db
 app.get("/all", function(req, res) {
     db.Article.find({}, function(err, data) {
@@ -120,6 +118,109 @@ app.get("/all", function(req, res) {
         res.json(data)
       }
     })
+  });
+
+  //Route for SAVED ARTICLES
+  app.get("/saved", function(req, res) {
+    db.Article.find({saved: true}, function(err, articles) {
+      if(err) {
+        console.log(err)
+      } else {
+        res.render("saved", { articles: articles })
+      }
+    })
+  })
+
+   //Mark a article as saved.
+   app.put("/statussaved/:id", function(req, res) {
+    //Remember: when searching by an id, the id needs to be passed in
+    saveStatus(true,req, res);
+});
+
+//Mark an article as not saved.
+app.put("/statusnotsaved/:id", function(req, res) {
+    //Remember: when searching by an id, the id needs to be passed in
+    saveStatus(false, req, res);
+});
+
+//Function that marks an article as saved (saved: true) or not saved (saved: false).
+function saveStatus(isSaved, req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: isSaved },
+        function(err, data) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+            res.json(data);
+            }
+    });
+}
+  
+  // Route for grabbing a specific Article by id, populate it with it's note
+  app.get("/articles/:id", function(req, res) {
+    db.Article.findOne({ _id: req.params.id })
+      .populate("note")
+      .then(function(dbArticle) {
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  //Route to POST create NOTE
+  app.post("/notes", function(req, res) {
+    if(req.body) {
+      db.Note.create(req.body) 
+      .then(function(dbNote) {
+        res.json(dbNote);
+      })
+      .catch(function(err) {
+        res.json(err)
+      })
+    }
+  })
+  
+  // Route for saving/updating an Article's associated Note
+  app.post("/notes/:id", function(req, res) {
+    db.Note.create(req.body)
+      .then(function(dbNote) {
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      })
+      .then(function(dbArticle) {
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
+  //Route to DELETE a specific ARTICLE
+  app.delete("/articles/:id", function(res, req) {
+    db.Article.deleteOne({ _id: req.params.id }, function(err, data) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("delete")
+        res.json(data);
+      }
+    })
+  })
+
+  //Route to DELETE a NOTE
+  app.delete("/notes/:id", function(req, res) {
+    db.Note.deleteOne({ _id: req.params.id }, function(err, data) {
+      if(err) {
+        console.log(err) 
+      } else {
+        res.json(data)
+      }
+    })
+  })
+  
+  // Start the server
+  app.listen(PORT, function() {
+    console.log("App running on port " + PORT + "!");
   });
 
   
