@@ -1,45 +1,41 @@
-
-            <header class="header-school-page navbar justify-content-center sticky-top">
-                <h1 class="logo-scholar-line">
-                        MONGO SCRAPER
-                </h1>
-            </header>
-            <div class="nav-container">
-                <!-- <nav class="nav nav-school justify-content-center"> -->
-                <ul class="nav justify-content-center">
-                    <li class="link-container nav-item">
-                        <a class="home-link nav-link" href="/">HOME</a>
-                    </li>
-                    <li class="link-container nav-item">
-                        <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
-                    </li>
-                </ul>
+<header class="navbar justify-content-center">
+    <h1>THE ECONOMIST SCRAPER</h1>
+</header>
+<div class="nav-container">
+    <!-- <nav class="nav nav-school justify-content-center"> -->
+    <ul class="nav justify-content-center">
+        <li class="link-container nav-item">
+            <a class="home-link nav-link" href="/">HOME</a>
+        </li>
+        <li class="link-container nav-item">
+            <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
+        </li>
+    </ul>
             
-        </div>
+</div>
         {{!-- NAVBAR END --}}
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h2>Saved articles</h2>
+            <h2 id="saved-articles-title">Saved articles</h2>
             {{#each articles}}
-    <div class="card mt-5">
-        <div class="card-body">
-            <h5 class="card-title article-title">{{this.title}}</h5>
-            <p class="card-text article-descr">{{this.descr}}</p>
+    <div class="card card-main mt-5">
+        <div class="card-body card-saved">
+            <h5 class="row card-title article-title">{{this.title}}</h5>
+            <p class="row card-text article-descr">{{this.descr}}</p>
     
-            <br>
-            <a href='{{this.link}}' target="_blank"><button class="btn btn-dark mt-4">KEEP READING</button></a>
-            <button class="delete-saved-btn btn btn-dark ml-3 mt-4" data-id="{{this._id}}">REMOVE FROM FAVORITES</button></a>
-            <button class="add-note-btn btn btn-dark ml-3 mt-4 " data-id="{{this._id}}">COMMENT</button>
+            <div class="row"> 
+            <button class="read-btn keep-reading-btn btn btn-sm btn-dark col-lg-3 mr-2"> <a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
+            <button class="btn-saved-page delete-saved-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">REMOVE FROM FAVORITES</button></a>
+            <button class="btn-saved-page add-note-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">COMMENT</button>
+            </div>
         </div>
     </div>
 {{/each}}
         </div>
     </div>
 </div>
-
-
 
 {{!-- COMMENTS MODAL --}}
   {{> comments-modal}}

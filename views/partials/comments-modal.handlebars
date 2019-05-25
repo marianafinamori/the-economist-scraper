@@ -11,8 +11,9 @@
               <div class="container-fluid">
               <div class="row">
                   <div class="col-md-10 ml-auto" id="containerMatch">
-                       {{#if notes}}
-                      <h5>Article: {{this.articleref}}</h5>
+                    <ul id="comments-div"></ul>
+                       {{!-- {{#if notes}}
+                      <h5>Article: {{this.article}}</h5>
                       <ul>
                             {{#each notes}}
                             <li class="comment-item" id="comment{{this._id}}">
@@ -25,11 +26,12 @@
                       </ul>
                       {{else}}
                       <p>No comments added</p>
-                      {{/if}}
-                       <form>
+                      {{/if}} --}}
+                       <form id="post-btn-div">
                             <div class="form-group">
                                 <textarea id="commenttextarea"class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-                                <button id="post-btn"data-id="{{this._id}}">POST</button>
+                                <button class="btn" id="post-btn">POST</button>
+                                {{!-- <div id="post-btn-div"></div> --}}
                             </div>
                         </form>
                   </div>
@@ -42,3 +44,5 @@
         </div>
       </div>
     </div>
+
+              

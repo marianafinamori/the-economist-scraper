@@ -28,8 +28,8 @@ mongoose.Promise = Promise;
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/economist";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 var checkdb = mongoose.connection;
-//Check DB connection
 
+//Check DB connection
 checkdb.once('open', function() {
   console.log("connected to mongoDB")
 });
@@ -65,18 +65,10 @@ app.get("/", function(req, res) {
       res.render("index", { articles: articles})
     }
   })
-  // res.send("hello")
 })
-
-// app.get("/articles/add", function(req, res) {
-//   res.render("add", {title: "add article"})
-  
-// })
- 
 
 //A GET ROUTE for SCRAPING The Economist website
 app.get("/scrape", function(req, res) {
-    //First we grab the body of the html with axios
     axios.get("https://www.economist.com/international/").then(function(response) {
         var $ = cheerio.load(response.data);
         // var results = [];
@@ -89,14 +81,12 @@ app.get("/scrape", function(req, res) {
             // console.log(result.link);
             // console.log(result.descr);
 
-            //Create a new Article using the "result" object build from scraping
+            //Create an ARTICLE in the DB using the "result" object built from scraping
             db.Article.create(result)
             .then(function(dbArticle) {
-                //View the added result in the console
                 console.log(dbArticle)
             })
             .catch(function(err) {
-                // If an error occurred, log it
                 console.log(err);
             })
             // res.json(result);
@@ -110,12 +100,12 @@ app.get("/scrape", function(req, res) {
 
 // Route for getting ALL ARTICLES from the db
 app.get("/all", function(req, res) {
-    db.Article.find({}, function(err, data) {
+    db.Article.find({}, function(err, articles) {
       if(err) {
         console.log(err);
       } else {
-        res.render("all", {articles: data})
-        res.json(data)
+        // res.render("all", {articles: data})
+        res.json(articles)
       }
     })
   });
@@ -131,19 +121,16 @@ app.get("/all", function(req, res) {
     })
   })
 
-   //Mark a article as saved.
+   //SAVE article
    app.put("/statussaved/:id", function(req, res) {
-    //Remember: when searching by an id, the id needs to be passed in
     saveStatus(true,req, res);
 });
 
-//Mark an article as not saved.
+//UNSAVE aeticle
 app.put("/statusnotsaved/:id", function(req, res) {
-    //Remember: when searching by an id, the id needs to be passed in
     saveStatus(false, req, res);
 });
 
-//Function that marks an article as saved (saved: true) or not saved (saved: false).
 function saveStatus(isSaved, req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: isSaved },
         function(err, data) {
@@ -155,47 +142,49 @@ function saveStatus(isSaved, req, res) {
             }
     });
 }
-  
-  // Route for grabbing a specific Article by id, populate it with it's note
-  app.get("/articles/:id", function(req, res) {
-    db.Article.findOne({ _id: req.params.id })
-      .populate("note")
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
 
-  //Route to POST create NOTE
-  app.post("/notes", function(req, res) {
-    if(req.body) {
-      db.Note.create(req.body) 
-      .then(function(dbNote) {
-        res.json(dbNote);
-      })
-      .catch(function(err) {
-        res.json(err)
-      })
-    }
+//Route to get a specific ARTICLE and populate with note
+app.get("/articles/:id", function(req, res) {
+  db.Article.findOne({ _id: req.params.id })
+  .populate("note")
+  .then(function(dbArticle) {
+      res.json(dbArticle);
   })
-  
-  // Route for saving/updating an Article's associated Note
-  app.post("/notes/:id", function(req, res) {
-    db.Note.create(req.body)
-      .then(function(dbNote) {
-        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+  .catch(function(err) {
+      res.json(err);
+  });
+});
+
+//Route for an article related to a note
+app.get("/notes/:id", function (req, res) {
+  if(req.params.id) {
+      db.Note.find({
+          "article": req.params.id
       })
-      .then(function(dbArticle) {
-        res.json(dbArticle);
+      .exec(function (error, doc) {
+          if (error) {
+              console.log(error)
+          } else {
+              res.send(doc);
+          }
+      });
+  }
+});
+
+//Route to CREATE a NOTE
+app.post("/notes", function (req, res) {
+  if (req.body) {
+      db.Note.create(req.body)
+      .then(function(dbNote) {
+          res.json(dbNote);
       })
       .catch(function(err) {
-        res.json(err);
+          res.json(err);
       });
+  }
   });
 
- 
+
  //Route to DELETE an ARTICLE
 app.delete("/articles/:id", function(req, res) {
   db.Article.deleteOne({ _id: req.params.id }, function(err, data) {
@@ -210,16 +199,18 @@ app.delete("/articles/:id", function(req, res) {
 
   //Route to DELETE a NOTE
   app.delete("/notes/:id", function(req, res) {
-    db.Note.deleteOne({ _id: req.params.id }, function(err, data) {
-      if(err) {
-        console.log(err) 
-      } else {
-        res.json(data)
-      }
-    })
-  })
+    db.Note.deleteOne({ _id: req.params.id },
+        function(err, data) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+            res.json(data);
+            }
+    });
+});
   
-  // Start the server
+  //START SERVER
   app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
   });

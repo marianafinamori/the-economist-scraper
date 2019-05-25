@@ -1,69 +1,69 @@
 <header class="navbar justify-content-center">
-    <h1>MONGO SCRAPER</h1>
-            </header>
-            <div class="nav-container">
-                <!-- <nav class="nav nav-school justify-content-center"> -->
-                <ul class="nav justify-content-center">
-                    <li class="link-container nav-item">
-                        <a class="home-link nav-link" href="/">HOME</a>
-                    </li>
-                    <li class="link-container nav-item">
-                        <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
-                    </li>
-                    <li class="link-container nav-item">
-                        <form class="form-inline"> 
-                            <button id="scrape-btn" class="btn btn-dark my-2 my-sm-0" type="submit">SCRAPE ARTICLES</button>
-                        </form>
-                    </li>
-                </ul>
+    <h1>THE ECONOMIST SCRAPER</h1>
+</header>
+<div class="nav-container">
+    <!-- <nav class="nav nav-school justify-content-center"> -->
+    <ul class="nav justify-content-center">
+        {{!-- <li class="link-container nav-item">
+            <a class="home-link nav-link" href="/">HOME</a>
+        </li> --}}
+        <li class="link-container nav-item">
+            <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
+        </li>
+        <li class="link-container nav-item">
+            <form class="form-inline"> 
+                <button id="scrape-btn" class="btn btn-dark my-2 my-sm-0" type="submit">SCRAPE ARTICLES</button>
+            </form>
+        </li>
+        <li class="link-container nav-item">
+            <form class="form-inline"> 
+                <button id="results-btn" class="btn btn-dark my-2 my-sm-0" type="submit">SEE RESULTS</button>
+            </form>
+        </li>
+    </ul>
             
-        </div>
+</div>
                 <!-- </nav> -->
            
 
          <!-- CONTENT -->
-            <div class="container main-container-results">
-                <div class="container search-results">
-                        {{#if articles}} 
-                    <!-- <h3 id="search-results-title">Grade 2</h3> -->
-                        <div class="container card container-results-all">
-                            <div class="row justify-content-between">
-                                {{!-- <h4 class="card-title col-lg-3" id="sr">SCRAPE RESULTS</h4> --}}
-                            </div>
-                            <div class="card-body tableDiv">
-                                <table class="table table-hover" id="tableContainer">
-                                        <thead>
-                                <tr>
-                                    <th class="school-type">THE ECONOMIST INTERNATIONAL</th>
-                                </tr>
-                            </thead> 
+<div class="container main-container-results">
+    <div class="container search-results">
+        {{#if articles}} 
+        <!-- <h3 id="search-results-title">Grade 2</h3> -->
+        <div class="container card container-results-all">
+            <div class="row justify-content-between">
+            {{!-- <h4 class="card-title col-lg-3" id="sr">SCRAPE RESULTS</h4> --}}
+            </div>
+            <div class="card-body tableDiv">
+                <table class="table table-hover" id="tableContainer">
+                    <thead>
+                        <tr>
+                            <th class="school-type">THE ECONOMIST INTERNATIONAL</th>
+                        </tr>
+                    </thead> 
                          
-                                    <tbody id="tbody">
-                                        {{#each articles}}
-                                        <tr>
-                                            <td class="row">
-                                                <h4 class="article-title row col-lg-8">{{this.title}}</h4>
-                                                <p class="description row col-lg-8">{{this.descr}}</p>
-                                                <form class="row">
-                                                   
-                                                    <button class="read-btn btn btn-sm btn-dark col-lg-3"> <a href="{{this.link}}" target="_blank">KEEP READING</a></button>
-                                                    <button class="save-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">SAVE ARTICLE</button>
-                                                    <button class="delete-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">DELETE ARTICLE</button>
-                                                </form>
-                                                    
-                    
-
-                                                
-                                             </td>
-                                        </tr>
-                                        {{/each}}
-                                        </tbody>
-                                        {{else}} 
-                                        <h4>No articles</h4> 
-                                </table>       
-                            </div>
-                        </div>
-                          {{/if}}
-                    </div>
-                </div> 
+                    <tbody id="tbody">
+                        {{#each articles}}
+                        <tr>
+                            <td class="row">
+                                <h4 class="article-title row col-lg-8">{{this.title}}</h4>
+                                <p class="description row col-lg-8">{{this.descr}}</p>
+                                <form class="row">                                  
+                                    <button class="read-btn btn btn-sm btn-dark col-lg-3"> <a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
+                                    <button class="save-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">SAVE ARTICLE</button>
+                                    <button class="delete-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">DELETE ARTICLE</button>
+                                </form>   
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+        {{else}} 
+        <h4>No articles</h4> 
+                </table>       
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div> 
               

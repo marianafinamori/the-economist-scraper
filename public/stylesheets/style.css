@@ -1,9 +1,91 @@
 body {
     font-family: "Playfair Display";
-    color: green;
+    background: url("../img/newspaper1.jpg");
+}
+
+header,
+.nav-container {
+    background-color: #e3120b;
+    color: #fafafa;
+}
+
+.nav-container {
+    padding-bottom: 20px;
+    padding-top: 1%;
+    margin-bottom: 30px;
 }
 
 a {
+    color: #fafafa;
     display: block;
 }
+
+a:hover {
+    color: #4a4a4a;
+}
+
+#results-btn {
+    margin-left: 10px;
+}
+
+.main-container-results {
+    opacity: 0.9;
+}
+
+.description {
+    margin-right: 3px;
+}
+
+.btn {
+    margin-top: 1px;
+    margin-bottom: 2px;
+}
+
+th {
+    text-align: center;
+    font-size: 25px;
+}
+
+.keepreading:hover {
+    color: lightskyblue;
+}
+
+li {
+    list-style: none;
+}
+
+.pcomment,
+.delete-comment-btn {
+    display: inline-block;
+}
+
+ .pcomment {
+     margin-right: 3%;
+}
+
+#post-btn {
+    margin-top: 1%;
+    background-color: lightskyblue;
+}
+
+#saved-articles-title {
+    color: #4a4a4a;
+    font-size: 40px;
+    background-color: #fafafa;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.btn:hover {
+    color: lightblue;
+}
+
+.card-saved {
+    padding-left: 4%;
+}
+
+.card-main {
+    opacity: 0.9;
+}
+
 
