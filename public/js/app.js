@@ -82,7 +82,6 @@ $(".delete-saved-btn").on("click", function(event) {
               } else {
                   var nocomments = $("<p>No comments added</p>")
                   $("#comments-div").append(nocomments)
-
               }
              
           });
