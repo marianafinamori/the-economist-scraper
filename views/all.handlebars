@@ -1,68 +1,45 @@
-
-            <header class="header-school-page navbar justify-content-center sticky-top">
-                <h1 class="logo-scholar-line">
-                        MONGO SCRAPER "ALL"
-                </h1>
-            </header>
-            <div class="nav-container">
-                <!-- <nav class="nav nav-school justify-content-center"> -->
-                <ul class="nav justify-content-center">
-                    <li class="link-container nav-item">
-                        <a class="home-link nav-link" href="/">HOME</a>
-                    </li>
-                    <li class="link-container nav-item">
-                        <a class="saved-link nav-link" href="/all">SCRAPED RESULTS</a>
-                    </li>
-                    <li class="link-container nav-item">
-                        <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
-                    </li>
-                    <li class="link-container nav-item">
-                        <form class="form-inline"> 
-                            <button id="scrape-btn" class="btn btn-dark my-2 my-sm-0" type="submit">SCRAPE ARTICLES</button>
-                        </form>
-                    </li>
-                </ul>
+<header class="navbar justify-content-center">
+    <h1>THE ECONOMIST SCRAPER</h1>
+</header>
+<div class="nav-container">
+    <!-- <nav class="nav nav-school justify-content-center"> -->
+    <ul class="row nav justify-content-center">
+        <li class="col-lg-3 link-container nav-item">
+            <button class="saved-btn"><a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a></button>
+        </li>
+          <li class="col-lg-4 link-container nav-item">
+            <button class="home-link-btn"><a class="home-link nav-link" href="/">CLEAR RESULTS AND START OVER</a></button>
+        </li>
+    </ul>
             
-        </div>
-                <!-- </nav> -->
-           
+</div>
+        {{!-- NAVBAR END --}}
 
-         <!-- CONTENT -->
-            <div class="container main-container-results">
-                <div class="container search-results">
-                        <div class="container card container-results-all">
-                            <div class="row justify-content-between">
-                                <h4 class="card-title col-lg-3" id="sr">SCRAPE RESULTS ALL</h4>
-                            </div>
-                            <div class="card-body tableDiv">
-                                <table class="table table-hover" id="tableContainer">
-                                        <thead>
-                                <tr>
-                                    <th class="school-type">THE ECONOMIST INTERNATIONAL</th>
-                                </tr>
-                            </thead>
-                         
-                                    <tbody id="tbody">
-                                        {{#each data}}
-                                        <tr>
-                                            <td class="row">
-                                                <h4 class="article-title row col-lg-8">{{this.title}}</h4>
-                                                <p class="description row col-lg-8">{{this.descr}}</p>
-                                                <form class="row">
-                                                    <a href="{{this.link}}">
-                                                        <button class="read-btn btn btn-sm btn-dark col-lg-3">KEEP READING</button>
-                                                    </a>
-                                                </form>
-                                                    
-                                                    <button class="save-article-btn btn btn-sm btn-dark add-btn col-lg-5 ml-2" data-id="{{this._id}}">SAVE ARTICLE</button>
-                                                    {{!-- <button class="btn btn-sm btn-dark add-btn col-lg-5 ml-2" data-id="{{this._id}}">DELETE ARTICLE</button> --}}
-                                                
-                                             </td>
-                                        </tr>
-                                        {{/each}}
-                                        </tbody>    
-                                        </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+<div class="container all-main">
+    <div class="row">
+        <div class="col-md-12">
+           
+            <h2 id="results-articles-title">Scrape results</h2>
+             {{#if articles}}
+            {{#each articles}}
+    <div class="card card-main mt-5">
+        <div class="card-body card-saved">
+            <h5 class="row card-title article-title">{{this.title}}</h5>
+            <p class="row card-text article-descr">{{this.descr}}</p>
+    
+            <div class="row"> 
+            <button class="read-btn keep-reading-btn btn btn-sm btn-dark col-lg-3 mr-2"> <a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
+            <button class="save-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">SAVE ARTICLE</button>
+            <button class="delete-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">DELETE ARTICLE</button>
+            </div>
+        </div>
+    </div>
+{{/each}}
+{{else}}
+<h4 id="scrape-first-message">You need to click the "scrape" button before "see results"</h4>
+{{/if}}
+        </div>
+    </div>
+</div>
+
+

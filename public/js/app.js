@@ -1,3 +1,5 @@
+
+
 //Scrape and update list
 $("#scrape-btn").on("click", function(event) {
     $.ajax({
@@ -5,7 +7,20 @@ $("#scrape-btn").on("click", function(event) {
         url: "/scrape"
     })
     .then(function() {
-        location.href = "/all"
+        console.log("scrape and create mongoDB documents done")
+        
+    })
+})
+
+$("#results-btn").on("click", function(event) {
+    $.ajax({
+        method: "GET",
+        url: "/articles"
+    })
+    .then(function(data) {
+        // console.log("show results")
+        console.log(data)
+        window.location = "/articles"
     })
 })
   
@@ -82,6 +97,7 @@ $(".delete-saved-btn").on("click", function(event) {
               } else {
                   var nocomments = $("<p>No comments added</p>")
                   $("#comments-div").append(nocomments)
+
               }
              
           });

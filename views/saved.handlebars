@@ -3,19 +3,21 @@
 </header>
 <div class="nav-container">
     <!-- <nav class="nav nav-school justify-content-center"> -->
-    <ul class="nav justify-content-center">
-        <li class="link-container nav-item">
-            <a class="home-link nav-link" href="/">HOME</a>
+    <ul class="nav justify-content-center row">
+        <li class="col-lg-3 link-container nav-item">
+            <form class="form-inline"> 
+                <button id="see-results-btn-link"><a class="results-link nav-link" href="/articles">SEE SCRAPE RESULTS</a></button>
+            </form>
         </li>
-        <li class="link-container nav-item">
-            <a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a>
+        <li class="col-lg-4 link-container nav-item">
+            <button class="home-link-btn"><a class="home-link nav-link" href="/">CLEAR RESULTS AND START OVER</a></button>
         </li>
     </ul>
             
 </div>
         {{!-- NAVBAR END --}}
 
-<div class="container">
+<div class="container saved-main">
     <div class="row">
         <div class="col-md-12">
             <h2 id="saved-articles-title">Saved articles</h2>
@@ -26,7 +28,7 @@
             <p class="row card-text article-descr">{{this.descr}}</p>
     
             <div class="row"> 
-            <button class="read-btn keep-reading-btn btn btn-sm btn-dark col-lg-3 mr-2"> <a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
+            <button class="read-btn keep-reading-btn btn btn-sm btn-dark col-lg-3 mr-2"><a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
             <button class="btn-saved-page delete-saved-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">REMOVE FROM FAVORITES</button></a>
             <button class="btn-saved-page add-note-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">COMMENT</button>
             </div>

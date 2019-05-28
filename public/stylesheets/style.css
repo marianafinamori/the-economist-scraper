@@ -7,6 +7,7 @@ header,
 .nav-container {
     background-color: #e3120b;
     color: #fafafa;
+    opacity: 0.9;
 }
 
 .nav-container {
@@ -24,9 +25,43 @@ a:hover {
     color: #4a4a4a;
 }
 
-#results-btn {
-    margin-left: 10px;
+.saved-btn {
+    background-color: #e3120b;
+    /* background-color: #00b3b3; */
+    /* background-color: #264d73; */
 }
+
+#results-btn,
+#scrape-btn {
+    display: block;
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    height: 80px;
+    font-size: 130%;
+    /* opacity: 0.8; */
+}
+
+.home-link-btn {
+    background-color: #e3120b;
+}
+
+
+#see-results-btn-link {
+    background-color: #e3120b;
+}
+
+#results-btn:hover,
+#scrape-btn:hover {
+    zoom: 1.1;
+}
+
+.results-link:hover {
+    color: lightblue;
+}
+
+
 
 .main-container-results {
     opacity: 0.9;
@@ -68,12 +103,40 @@ li {
     background-color: lightskyblue;
 }
 
-#saved-articles-title {
+#saved-articles-title,
+#results-articles-title {
     color: #4a4a4a;
     font-size: 40px;
     background-color: #fafafa;
     opacity: 0.6;
     text-align: center;
+}
+
+#no-articles-message {
+    /* color: #4a4a4a; */
+    color: black;
+    font-size: 40px;
+    background-color: #fafafa;
+    opacity: 0.8;
+    text-align: center;
+}
+
+#scrape-first-message {
+    color: #4a4a4a;
+    font-size: 28px;
+    background-color: #fafafa;
+    opacity: 0.8;
+    text-align: center;
+}
+
+#instructions {
+    color: black;
+    font-size: 26px;
+    background-color: #fafafa;
+    /* opacity: 0.9; */
+    text-align: center;
+    margin-top: 2%;
+    padding: 1%;
 }
 
 .btn:hover {
@@ -87,5 +150,12 @@ li {
 .card-main {
     opacity: 0.9;
 }
+
+.all-main, 
+.saved-main {
+    padding-bottom: 3%;
+}
+
+
 
 

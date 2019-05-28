@@ -55,18 +55,29 @@ app.set("view engine", "handlebars");
 //===================================
 
 //Route for HOME 
+// app.get("/", function(req, res) {
+//   db.Article.find({saved: false}, function(err, articles) {
+//     if(err) {
+//       console.log(err);
+//     } else {
+//       // res.send("Hello world")
+//       // console.log(articles);
+//       res.render("index", { articles: articles})
+//     }
+//   })
+// })
+
 app.get("/", function(req, res) {
-  db.Article.find({saved: false}, function(err, articles) {
+  db.Article.deleteMany({saved: false}, function(err, articles) {
     if(err) {
       console.log(err);
     } else {
       // res.send("Hello world")
       // console.log(articles);
-      res.render("index", { articles: articles})
+      res.render("index")
     }
   })
 })
-
 //A GET ROUTE for SCRAPING The Economist website
 app.get("/scrape", function(req, res) {
     axios.get("https://www.economist.com/international/").then(function(response) {
@@ -84,7 +95,9 @@ app.get("/scrape", function(req, res) {
             //Create an ARTICLE in the DB using the "result" object built from scraping
             db.Article.create(result)
             .then(function(dbArticle) {
-                console.log(dbArticle)
+                // console.log(dbArticle)
+                // res.json(result)
+                console.log("create docs in the DB")
             })
             .catch(function(err) {
                 console.log(err);
@@ -93,22 +106,24 @@ app.get("/scrape", function(req, res) {
         })
         // res.send("Scrape Complete")
         // console.log("before send json")
-        res.json(result);
+        console.log("scrape is complete")
+        
     })
 })
 
 
 // Route for getting ALL ARTICLES from the db
-app.get("/all", function(req, res) {
-    db.Article.find({}, function(err, articles) {
-      if(err) {
-        console.log(err);
-      } else {
-        // res.render("all", {articles: data})
-        res.json(articles)
-      }
-    })
-  });
+app.get("/articles", function(req, res) {
+  db.Article.find({saved: false}, function(err, articles) {
+    if(err) {
+      console.log(err);
+    } else {
+      // res.send("Hello world")
+      // console.log(articles);
+      res.render("all", { articles: articles})
+    }
+  })
+})
 
   //Route for SAVED ARTICLES
   app.get("/saved", function(req, res) {
