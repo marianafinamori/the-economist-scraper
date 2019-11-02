@@ -17,7 +17,7 @@
     "lodash": "^4.17.14",
     "mocha": "^6.1.4",
     "mongojs": "^2.6.0",
-    "mongoose": "^5.5.9",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.0"
   }
