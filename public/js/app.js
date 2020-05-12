@@ -1,29 +1,16 @@
-
-
 //Scrape and update list
 $("#scrape-btn").on("click", function(event) {
     $.ajax({
         method:"GET",
-        url: "/scrape"
+        url: "/articles"
     })
-    .then(function() {
-        console.log("scrape and create mongoDB documents done")
+    .then(function(event) {
+        setTimeout(function(){ window.location = "/articles"}, 1000);
+
         
     })
 })
 
-$("#results-btn").on("click", function(event) {
-    $.ajax({
-        method: "GET",
-        url: "/articles"
-    })
-    .then(function(data) {
-        // console.log("show results")
-        console.log(data)
-        window.location = "/articles"
-    })
-})
-  
 //Save an article
 $(".save-article-btn").on("click", function(event) {
     var id = $(this).attr("data-id");

@@ -15,9 +15,11 @@ const app = express();
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
+
 // Parse request body as JSON
 // app.use(express.urlencoded({ extended: true }));
 // app.use(express.json());
+
 // Make public a static folder
 app.use(express.static("public"));
 // app.use(express.static(__dirname + '../public'));
@@ -45,27 +47,25 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Handlebars
-var exphbs = require("express-handlebars");
-// app.set('views', path.join(__dirname, 'views'));
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
+// var exphbs = require("express-handlebars");
+// // app.set('views', path.join(__dirname, 'views'));
+// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// app.set("view engine", "handlebars");
+
+//Handlebars new
+const Handlebars = require('handlebars')
+const expressHandlebars = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+ 
+app.engine('handlebars', expressHandlebars({
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+    defaultLayout: "main"
+}));
+app.set('view engine', 'handlebars');
 
 
 //ROUTES
 //===================================
-
-//Route for HOME 
-// app.get("/", function(req, res) {
-//   db.Article.find({saved: false}, function(err, articles) {
-//     if(err) {
-//       console.log(err);
-//     } else {
-//       // res.send("Hello world")
-//       // console.log(articles);
-//       res.render("index", { articles: articles})
-//     }
-//   })
-// })
 
 app.get("/", function(req, res) {
   db.Article.deleteMany({saved: false}, function(err, articles) {
@@ -79,50 +79,42 @@ app.get("/", function(req, res) {
   })
 })
 //A GET ROUTE for SCRAPING The Economist website
-app.get("/scrape", function(req, res) {
+app.get("/articles", function(req, res) {
     axios.get("https://www.economist.com/international/").then(function(response) {
         var $ = cheerio.load(response.data);
         // var results = [];
         $(".teaser").each(function(i, element) {
             var result = {}
-            result.title = $(element).find(".flytitle-and-title__title").text()
+            result.title = $(element).find(".teaser__headline").text()
             result.link = "https://www.economist.com" + $(element).find("a").attr("href");
-            result.descr = $(element).find(".teaser__text").text();
-            // console.log(result.title);
-            // console.log(result.link);
-            // console.log(result.descr);
+            result.descr = $(element).find(".teaser__description").text();
+            console.log(result.title);
+            console.log(result.link);
+            console.log(result.descr);
 
-            //Create an ARTICLE in the DB using the "result" object built from scraping
+            // Create an ARTICLE in the DB using the "result" object built from scraping
             db.Article.create(result)
             .then(function(dbArticle) {
                 // console.log(dbArticle)
-                // res.json(result)
-                console.log("create docs in the DB")
+                // console.log("create docs in the DB")
             })
             .catch(function(err) {
-                console.log(err);
+                console.log("this is the ERROR: " + err);
             })
-            // res.json(result);
         })
-        // res.send("Scrape Complete")
-        // console.log("before send json")
-        console.log("scrape is complete")
-        
+        // console.log("scrape is completed and collection is created"   
     })
-})
-
-
-// Route for getting ALL ARTICLES from the db
-app.get("/articles", function(req, res) {
-  db.Article.find({saved: false}, function(err, articles) {
-    if(err) {
-      console.log(err);
-    } else {
-      // res.send("Hello world")
-      // console.log(articles);
-      res.render("all", { articles: articles})
-    }
-  })
+  
+    //Collection created, now we find articles in DB
+    db.Article.find({saved: false}, function(err, articles) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("this are the searched articles" + articles)
+        console.log("created DB and is know searching")
+        res.render("all", { articles: articles})
+      }
+    })
 })
 
   //Route for SAVED ARTICLES
@@ -141,7 +133,7 @@ app.get("/articles", function(req, res) {
     saveStatus(true,req, res);
 });
 
-//UNSAVE aeticle
+//UNSAVE article
 app.put("/statusnotsaved/:id", function(req, res) {
     saveStatus(false, req, res);
 });
@@ -211,7 +203,6 @@ app.delete("/articles/:id", function(req, res) {
   });
 });
 
-
   //Route to DELETE a NOTE
   app.delete("/notes/:id", function(req, res) {
     db.Note.deleteOne({ _id: req.params.id },
@@ -229,5 +220,3 @@ app.delete("/articles/:id", function(req, res) {
   app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
   });
-
-  
