@@ -1,14 +1,21 @@
 //Scrape and update list
-$("#scrape-btn").on("click", function(event) {
+$(".scrape-btn").on("click", function(event) {
     $.ajax({
         method:"GET",
         url: "/articles"
     })
     .then(function(event) {
-        setTimeout(function(){ window.location = "/articles"}, 1000);
-
-        
+        // console.log(data)
+        setTimeout(function(){ window.location = "/articles"}, 4000);
     })
+
+    var wait = document.querySelector("#wait-div")
+    wait.classList.add('wait-msg');
+    wait.innerHTML = "Scraping...";
+    setTimeout(() => {
+        wait.innerHTML = " ";
+        wait.classList.remove('wait-msg')
+    }, 4000);
 })
 
 //Save an article
@@ -45,9 +52,10 @@ $(".delete-saved-btn").on("click", function(event) {
         $.ajax("/articles/" + id, {
             type: "DELETE",
         }).then(
-            function() {
+            function(data) {
             console.log("deleted article", id);
             location.reload();
+            // window.location = "/articles"
             }
         );
    

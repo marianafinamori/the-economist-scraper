@@ -1,9 +1,11 @@
 <header class="navbar justify-content-center">
-    <h1>THE ECONOMIST SCRAPER</h1>
+    <div class="container justify-content-center">
+        <h1 id="title">THE ECONOMIST SCRAPER</h1>
+    </div>
 </header>
 <div class="nav-container">
-    <ul class="nav justify-content-center">
-         <li class="link-container nav-item">
+    <ul class="nav justify-content-center nav-buttons">
+         <li class="link-container nav-item nav-saved-btn">
             <button class="saved-btn"><a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a></button>
         </li>
     </ul>           
@@ -12,9 +14,11 @@
          <!-- CONTENT -->
 <div class="container main-container-results">
     <div class="container search-results">
-            <h2 id="no-articles-message">No articles</h2> 
-            <h4 id="instructions">Scrape to see articles from The Economist International</h4> 
-            <button id="scrape-btn" class="btn btn-dark" type="submit">SCRAPE ARTICLES</button>
+            {{!-- <h2 id="no-articles-message">No articles</h2>  --}}
+            <h2 id="instructions">Scrape to see articles from The Economist International</h2> 
+            {{!-- <div id="scrape-btn-div"> --}}
+                <button id="scrape-btn" class="scrape-btn" type="submit">SCRAPE ARTICLES</button>
+            {{!-- </div> --}}
             <div id="wait-div"></div>
             {{!-- <button id="results-btn" class="btn btn-dark" type="submit"><a class="results-link nav-link" href="/articles">SEE RESULTS</a></button> --}}
            

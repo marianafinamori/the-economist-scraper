@@ -3,7 +3,7 @@
 </header>
 <div class="nav-container">
     <!-- <nav class="nav nav-school justify-content-center"> -->
-    <ul class="row nav justify-content-center">
+    <ul class="row nav justify-content-center nav-buttons">
         <li class="col-lg-3 link-container nav-item">
             <button class="saved-btn"><a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a></button>
         </li>
@@ -36,7 +36,10 @@
     </div>
 {{/each}}
 {{else}}
-<h4 id="scrape-first-message">You need to click the "scrape" button before "see results"</h4>
+<div id="went-wrong-div" >
+    <h4 id="went-wrong-message">Something went wrong. Please try again</h4>
+    <button id="try-again-btn" class="scrape-btn" data-id="{{this._id}}">TRY AGAIN</button>
+</div>
 {{/if}}
         </div>
     </div>

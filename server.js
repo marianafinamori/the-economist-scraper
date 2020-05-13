@@ -28,7 +28,7 @@ mongoose.Promise = Promise;
 
 // If deployed, use the deployed database. Otherwise use the local economist database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/economist";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true});
 var checkdb = mongoose.connection;
 
 //Check DB connection
@@ -42,13 +42,13 @@ checkdb.on("error", function(err) {
 })
 
 // // Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/economist", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/economist", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Handlebars
 // var exphbs = require("express-handlebars");
-// // app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
 // app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 // app.set("view engine", "handlebars");
 
@@ -83,15 +83,17 @@ app.get("/articles", function(req, res) {
     axios.get("https://www.economist.com/international/").then(function(response) {
         var $ = cheerio.load(response.data);
         // var results = [];
+       
         $(".teaser").each(function(i, element) {
             var result = {}
             result.title = $(element).find(".teaser__headline").text()
             result.link = "https://www.economist.com" + $(element).find("a").attr("href");
             result.descr = $(element).find(".teaser__description").text();
-            console.log(result.title);
-            console.log(result.link);
-            console.log(result.descr);
-
+            // console.log(result.title);
+            // console.log(result.link);
+            // console.log(result.descr);
+            console.log(result)
+         
             // Create an ARTICLE in the DB using the "result" object built from scraping
             db.Article.create(result)
             .then(function(dbArticle) {
@@ -104,15 +106,16 @@ app.get("/articles", function(req, res) {
         })
         // console.log("scrape is completed and collection is created"   
     })
-  
+
     //Collection created, now we find articles in DB
     db.Article.find({saved: false}, function(err, articles) {
       if(err) {
         console.log(err);
       } else {
-        console.log("this are the searched articles" + articles)
-        console.log("created DB and is know searching")
+        // console.log("this are the searched articles" + articles)
+        // console.log("created DB and is know searching")
         res.render("all", { articles: articles})
+        // console.log(articles)
       }
     })
 })
@@ -201,6 +204,7 @@ app.delete("/articles/:id", function(req, res) {
         res.json(data);
      }
   });
+ 
 });
 
   //Route to DELETE a NOTE
