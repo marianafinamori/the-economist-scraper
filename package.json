@@ -4,7 +4,7 @@
   "description": "\"Scrape articles and save them in a DB\"",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "MF",
@@ -14,17 +14,18 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
-    "core-util-is": "^1.0.2",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "handlebars": "^4.7.6",
-    "lodash": "^4.17.15",
-    "mocha": "^7.1.2",
-    "mongojs": "^3.1.0",
     "mongoose": "^5.9.13",
     "morgan": "^1.10.0"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.3"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marianafinamori/the-economist-scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marianafinamori/the-economist-scraper/issues"
+  },
+  "homepage": "https://github.com/marianafinamori/the-economist-scraper#readme"
 }
