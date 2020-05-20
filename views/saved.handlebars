@@ -2,7 +2,6 @@
     <h1>THE ECONOMIST SCRAPER</h1>
 </header>
 <div class="nav-container">
-    <!-- <nav class="nav nav-school justify-content-center"> -->
     <ul class="nav justify-content-center row nav-buttons">
         <li class="col-lg-3 link-container nav-item">
             <form class="form-inline"> 
@@ -12,33 +11,30 @@
         <li class="col-lg-4 link-container nav-item">
             <button class="home-link-btn"><a class="home-link nav-link" href="/">CLEAR RESULTS AND START OVER</a></button>
         </li>
-    </ul>
-            
+    </ul>           
 </div>
-        {{!-- NAVBAR END --}}
-
+{{!-- NAVBAR END --}}
 <div class="container saved-main">
     <div class="row">
         <div class="col-md-12">
             <h2 id="saved-articles-title">Saved articles</h2>
             {{#each articles}}
-    <div class="card card-main mt-5">
-        <div class="card-body card-saved">
-            <h5 class="row card-title article-title">{{this.title}}</h5>
-            <p class="row card-text article-descr">{{this.descr}}</p>
-    
-            <div class="row"> 
-            <button class="read-btn keep-reading-btn btn btn-sm btn-dark col-lg-3 mr-2"><a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
-            <button class="btn-saved-page delete-saved-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">REMOVE FROM FAVORITES</button></a>
-            <button class="btn-saved-page add-note-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">COMMENT</button>
+            <div class="card card-main mt-5">
+                <div class="card-body card-saved">
+                    <h3 class="row card-title article-title">{{this.title}}</h3>
+                    <p class="row card-text article-descr">{{this.descr}}</p>
+                    <div class="row"> 
+                        <button class="read-btn keep-reading-btn btn btn-dark col-lg-3 mr-2"><a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
+                        <button class="btn-saved-page delete-saved-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">REMOVE FROM FAVORITES</button></a>
+                        <button class="btn-saved-page add-note-btn btn btn-dark col-lg-3 mr-2" data-id="{{this._id}}">COMMENT</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-{{/each}}
+            {{/each}}
         </div>
     </div>
 </div>
 
 {{!-- COMMENTS MODAL --}}
-  {{> comments-modal}}
+{{> comments-modal}}
 

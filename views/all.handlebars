@@ -2,45 +2,40 @@
     <h1>THE ECONOMIST SCRAPER</h1>
 </header>
 <div class="nav-container">
-    <!-- <nav class="nav nav-school justify-content-center"> -->
     <ul class="row nav justify-content-center nav-buttons">
         <li class="col-lg-3 link-container nav-item">
             <button class="saved-btn"><a class="saved-link nav-link" href="/saved">SAVED ARTICLES</a></button>
         </li>
-          <li class="col-lg-4 link-container nav-item">
+        <li class="col-lg-4 link-container nav-item">
             <button class="home-link-btn"><a class="home-link nav-link" href="/">CLEAR RESULTS AND START OVER</a></button>
         </li>
-    </ul>
-            
+    </ul>           
 </div>
-        {{!-- NAVBAR END --}}
-
+{{!-- NAVBAR END --}}
 <div class="container all-main">
     <div class="row">
         <div class="col-md-12">
-           
             <h2 id="results-articles-title">Scrape results</h2>
              {{#if articles}}
-            {{#each articles}}
-    <div class="card card-main mt-5">
-        <div class="card-body card-saved">
-            <h5 class="row card-title article-title">{{this.title}}</h5>
-            <p class="row card-text article-descr">{{this.descr}}</p>
-    
-            <div class="row"> 
-            <button class="read-btn keep-reading-btn btn btn-sm btn-dark col-lg-3 mr-2"> <a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
-            <button class="save-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">SAVE ARTICLE</button>
-            <button class="delete-article-btn btn btn-sm btn-dark add-btn col-lg-3 ml-2" data-id="{{this._id}}">DELETE ARTICLE</button>
-            </div>
-        </div>
-    </div>
-{{/each}}
-{{else}}
-<div id="went-wrong-div" >
-    <h4 id="went-wrong-message">Something went wrong. Please try again</h4>
-    <button id="try-again-btn" class="scrape-btn" data-id="{{this._id}}">TRY AGAIN</button>
-</div>
-{{/if}}
+                {{#each articles}}
+                    <div class="card card-main mt-5">
+                        <div class="card-body card-saved">
+                            <h3 class="row card-title article-title">{{this.title}}</h3>
+                            <p class="row card-text article-descr">{{this.descr}}</p>
+                            <div class="row"> 
+                                <button class="read-btn keep-reading-btn btn btn-dark col-lg-3 mr-2"> <a href="{{this.link}}" target="_blank" class="keepreading">KEEP READING</a></button>
+                                <button class="save-article-btn btn btn-dark add-btn col-lg-3 mr-2" data-id="{{this._id}}">SAVE ARTICLE</button>
+                                <button class="delete-article-btn btn btn-dark add-btn col-lg-3 mr-2" data-id="{{this._id}}">DELETE ARTICLE</button>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div id="went-wrong-div" >
+                    <h4 id="went-wrong-message">Something went wrong. Please try again</h4>
+                    <button id="try-again-btn" class="scrape-btn" data-id="{{this._id}}">TRY AGAIN</button>
+                </div>
+            {{/if}}
         </div>
     </div>
 </div>

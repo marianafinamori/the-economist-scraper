@@ -1,15 +1,14 @@
 //Scrape and update list
-$(".scrape-btn").on("click", function(event) {
+$(".scrape-btn").on("click", (event) => {
     $.ajax({
         method:"GET",
         url: "/articles"
     })
-    .then(function(event) {
-        // console.log(data)
-        setTimeout(function(){ window.location = "/articles"}, 4000);
+    .then((data) => {
+        setTimeout(() => { window.location = "/articles"}, 4000);
     })
 
-    var wait = document.querySelector("#wait-div")
+    let wait = document.querySelector("#wait-div")
     wait.classList.add('wait-msg');
     wait.innerHTML = "Scraping...";
     setTimeout(() => {
@@ -20,7 +19,7 @@ $(".scrape-btn").on("click", function(event) {
 
 //Save an article
 $(".save-article-btn").on("click", function(event) {
-    var id = $(this).attr("data-id");
+    let id = $(this).attr("data-id");
     console.log(id)
     $.ajax({
         method: "PUT",
@@ -34,7 +33,7 @@ $(".save-article-btn").on("click", function(event) {
 
 //Remove from saved list
 $(".delete-saved-btn").on("click", function(event) {
-    var id = $(this).attr("data-id");
+    let id = $(this).attr("data-id");
     $.ajax({
         method: "PUT",
         url: "/statusnotsaved/" + id
@@ -46,93 +45,84 @@ $(".delete-saved-btn").on("click", function(event) {
 });
 
 
-  //DELETE ARTICLE from results
-  $(".delete-article-btn").on("click", function(event) {
-    var id = $(this).data("id");
-        $.ajax("/articles/" + id, {
-            type: "DELETE",
-        }).then(
-            function(data) {
-            console.log("deleted article", id);
-            location.reload();
-            // window.location = "/articles"
-            }
-        );
-   
+//DELETE ARTICLE from results
+$(".delete-article-btn").on("click", function(event) {
+    let id = $(this).data("id");
+    $.ajax("/articles/" + id, {
+        type: "DELETE",
+    })
+    .then(function(data) {
+        console.log("deleted article", id);
+        location.reload();
+    });   
 });
 
-  //ADD COMMENT
-  $(".add-note-btn").on("click", function(event) {
-    var articleid = $(this).attr("data-id");
-    $("#post-btn").attr("data-id", articleid)
-    console.log(articleid)
-    // var id = $(this).attr("data-id");
-    //   $('#comments-modal').modal('show');
-      $.ajax({
-          method: "GET",
-          url: "/notes/" + articleid
-      })
-          .then(function(data) {
-              console.log(data);
-            //   $("#post-btn").attr("data-id", id)
-              console.log(articleid)
-              if (data.length > 0) {
-                var article = $("<p id=article-commented>Article ref: " + data[0].article + "</p>");
-                $("#comments-div").append(article);
-                console.log(article)
-                for (var i = 0; i < data.length; i++) {
-                    var body = data[i].body;
-                    var comment = $("<p class=pcomment>" + body + "</p>") 
-                    var commentDelete = $("<button class=delete-comment-btn data-id=" + data[i]._id + " type=button class=close data-dismiss=modal aria-label=Close><span aria-hidden=true>&times;</span>)")
-                  //   console.log(body)
-                    var commentItem = $("<li class=comment-item class=comment-item></li>")
-                    $(".comment-item").append(comment, commentDelete)
-                    $("#comments-div").append(commentItem)
-                } 
-              } else {
-                  var nocomments = $("<p>No comments added</p>")
-                  $("#comments-div").append(nocomments)
 
-              }
-             
-          });
-          $('#comments-modal').modal('show');
-  });
-
-  $(document).on("click", "#post-btn", function() {
-    var articleid = $(this).attr("data-id");
-    // var id = $(this).data("id");
-    // var id = $(this).attr("data-id");
-          $.ajax({
-                  method: "POST",
-                  url: "/notes",
-                  data: {
-                    article: articleid,
-                    body: $("#commenttextarea").val(), 
-                  }
-          })
-          .done(function(data) {
-              console.log(data);
-              $("#commenttextarea").val("");
-              $('#comments-modal').modal('hide');
-              window.location = "/saved"
-            
-          });
-      })
-  
-
-  //DELETE COMMENT
-  $(document).on("click", ".delete-comment-btn", function(event){
-      event.preventDefault();
-      var id = $(this).attr("data-id");
-      console.log(id);
-        $.ajax({
-            method: "DELETE",
-            url: "/notes/" + id 
-        })
-        .then(function() {
-            location.reload()
-        })
+//SEE COMMENTS FOR EACH ARTICLE
+$(".add-note-btn").on("click", function(event) {
+    let articleid = $(this).attr("data-id");
+    console.log("article id passed to post btn" + articleid)
+    $.ajax({
+        method: "GET",
+        url: "/notes/" + articleid
     })
+    .then(function(data) {
+        $("#comments-div").empty();
+        $("#article-commented-div").empty();
+        console.log("MODAL DATA")
+        console.log(data);
+        $("#post-btn").attr("data-id", data.articleId)
+        let article = $("<h5 id=article-commented>Article: " + data.title + "</h5>");
+        $("#article-commented-div").append(article);
+        console.log(article)
+        if (data.comments.length > 0) {
+            data.comments.forEach(note => { 
+                let comment = $("<p class=comment-text>" + note.body + "</p>") 
+                let commentDelete = $("<div class=delete-comment-btn data-id=" + note.id + "><i class='fa fa-trash'></i></div>")
+                let commentItem = $("<div class=comment-item></div>")
+                commentItem.append(comment, commentDelete)
+                $("#comments-div").append(commentItem)
+            });
+        } else if (data.comments.length === 0) {
+            console.log("no comments")
+            let nocomments = $("<p>No comments added</p>")
+            $("#comments-div").append(nocomments)
+        }
+    });
+    $('#comments-modal').modal('show');
+});
+
+//POST A COMMENT
+$(document).on("click", "#post-btn", function() {
+    let articleid = $(this).attr("data-id");
+    $.ajax({
+        method: "POST",
+        url: "/notes",
+        data: {
+            article: articleid,
+            body: $("#commenttextarea").val(), 
+        }
+    })
+    .done(function(data) {
+        console.log(data);
+        $("#commenttextarea").val("");
+        $('#comments-modal').modal('hide');
+        location.reload();
+    });
+})
+  
+//DELETE COMMENT
+$(document).on("click", ".delete-comment-btn", function(event){
+    event.preventDefault();
+    let id = $(this).attr("data-id");
+    console.log(id);
+    $.ajax({
+        method: "DELETE",
+        url: "/notes/" + id 
+    })
+    .then(function() {
+        location.reload()
+    })
+})
 
       

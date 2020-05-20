@@ -1,6 +1,6 @@
 body {
-    font-family: "Playfair Display";
     background: url("../img/newspaper1.jpg");
+    font-family: "Playfair Display";
 }
 
 header,
@@ -11,7 +11,16 @@ header,
 }
 
 h1 {
+    font-size: 3.3em;
+}
+
+h1, h2, h3, h4, h5 {
     text-align: center;
+    font-family: "Playfair Display";
+}
+
+.article-descr {
+    font-size: 1.2em;
 }
 
 .nav-container {
@@ -46,33 +55,32 @@ a:hover {
     color: #4a4a4a;
 }
 
-.saved-btn {
+.saved-btn,
+#see-results-btn-link {
     background-color: #e3120b;
+    margin-left: 3%;
 }
 
 #scrape-btn {
     display: block;
-    width: 30%;
+    /* width: 25%; */
     margin-right: auto;
     margin-left: auto;
     margin-top: 20px;
-    height: 80px;
-    font-size: 150%;
+    height: 60px;
+    font-size: 145%;
     opacity: 1;
     border: 0.5px solid #fafafa;
     color: #fafafa;
-    /* background-color: #343a40; */
     background-color: black;
     opacity: 0.9;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 .home-link-btn {
     background-color: #e3120b;
-}
-
-
-#see-results-btn-link {
-    background-color: #e3120b;
+    margin-right: 3%;
 }
 
 #scrape-btn:hover {
@@ -108,22 +116,57 @@ th {
     color: lightskyblue;
 }
 
-li {
-    list-style: none;
+.comment-item {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    height: 1%;
+
 }
 
-.pcomment,
 .delete-comment-btn {
-    display: inline-block;
+    flex:1;
+    text-align: center;
 }
 
- .pcomment {
-     margin-right: 3%;
+.fa-trash {
+    margin-top: 20%;
+    height: 100%;
+    width: 100%;  
+}
+
+.fa-trash:hover {
+    opacity: 0.5;
+}
+
+.comment-text {
+     margin-top: 3%;
+     flex:4;
+}
+
+#article-commented {
+    text-align: left;
+    color: #4a4a4a;
+    margin-bottom: 4%;
+}
+
+#comments-div {
+    margin-top: 3%;
 }
 
 #post-btn {
     margin-top: 1%;
-    background-color: lightskyblue;
+    background-color: #252525;
+    /* width: 20%; */
+    height: 3em;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 0.7em;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+#post-btn:hover {
+    opacity: 0.9;
 }
 
 #saved-articles-title,
@@ -173,7 +216,6 @@ li {
     color: black;
     font-size: 26px;
     background-color: #fafafa;
-    /* opacity: 0.9; */
     text-align: center;
     margin-top: 2%;
     padding: 1%;
@@ -201,8 +243,8 @@ li {
     border: 1px solid #4a4a4a;
     text-align: center;
     color: #4a4a4a;
-    max-width: 30%;
-    height: 50px;
+    max-width: 20%;
+    height: 45px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2%;
