@@ -55,10 +55,16 @@ a:hover {
     color: #4a4a4a;
 }
 
-.saved-btn,
+.saved-btn, 
+.home-link-btn,
 #see-results-btn-link {
     background-color: #e3120b;
     margin-left: 3%;
+    border: #fff 1px solid;
+}
+
+.home-link-btn {
+    margin-right: 3%;
 }
 
 #scrape-btn {
@@ -78,10 +84,7 @@ a:hover {
     padding-right: 3%;
 }
 
-.home-link-btn {
-    background-color: #e3120b;
-    margin-right: 3%;
-}
+
 
 #scrape-btn:hover {
     color: black;
